@@ -9,13 +9,13 @@ __pycache__/
 *.egg-info/
 
 # Vector store (large — regenerate with ingest_data.py)
-data/vectorstore/
+
 
 # Raw dataset CSVs (large — download from Kaggle)
 data/*.csv
 
 # Resume checkpoint (auto-generated during ingestion)
-data/vectorstore/resume_meta.json
+
 
 # IDE
 .vscode/

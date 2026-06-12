@@ -322,6 +322,38 @@ docker-compose exec api python scripts/ingest_data.py \
 
 ---
 
+## 👥 Concurrent Users
+
+With a **single Uvicorn worker** (the default), the API handles approximately **2–5 concurrent users**. This is sufficient for personal use or a small team.
+
+### Why the limit?
+
+| Component | Type | Blocks event loop? |
+|-----------|------|--------------------|
+| **FAISS search** | CPU-bound (vector math) | ✅ Yes — blocks other requests |
+| **Embedding** | CPU-bound (transformer inference) | ✅ Yes — blocks other requests |
+| **Cross-encoder reranking** | CPU-bound (transformer inference) | ✅ Yes — blocks other requests |
+| **LLM call** | I/O-bound (HTTP to Groq/OpenAI) | ❌ No — async, non-blocking |
+
+The CPU-bound operations (FAISS, embeddings, reranking) run synchronously. Only one request can perform these operations at a time per worker.
+
+### Scaling up
+
+| Setup | Concurrent users | Notes |
+|-------|-----------------|-------|
+| **1 worker** (default) | **2–5** | Fine for personal use or a small team |
+| **4 workers** (`--workers 4`) | **10–20** | Each worker runs independently; 4 searches in parallel |
+| **8+ workers** | **20–40** | Requires multi-core machine; each worker loads FAISS (~2–3 GB RAM) |
+
+```bash
+# Run with 4 workers for 10–20 concurrent users
+uvicorn app.main:app --workers 4 --host 0.0.0.0 --port 8000
+```
+
+> ⚠️ Each worker loads its own FAISS index + model into memory (~2–3 GB per worker). For higher concurrency, consider a vector database (Pinecone, Qdrant) so all workers share one search service.
+
+---
+
 ## 📁 Project Structure
 
 ```
