@@ -407,6 +407,9 @@ python-qa-assistant/
 2. Push your repo — Hugging Face will build from `Dockerfile`.
 3. Add secrets (GROQ_API_KEY etc.) in the Space settings.
 
+### Current Deployed on Hetzner 
+Link- http://178.104.222.69:8000/docs
+
 ---
 
 ## 📄 License
