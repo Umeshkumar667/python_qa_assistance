@@ -56,7 +56,7 @@ tags_metadata = [
 
 # ── App ───────────────────────────────────────────────────────────────────────
 app = FastAPI(
-    title="Python Q&A Assistant",
+    title="Python Q&A Assistant By Umeshkumar Pal",
     description=(
         "An AI-powered Q&A system grounded in Stack Overflow Python Q&A data. "
         "Uses a Retrieval-Augmented Generation (RAG) pipeline.\n\n"
