@@ -44,7 +44,7 @@ class Settings(BaseSettings):
     chunk_overlap: int = 150
 
     # ── Retrieval ─────────────────────────────────────────────────────────────
-    similarity_threshold: float = 0.75  # Minimum similarity score for retrieved docs
+    similarity_threshold: float = 0.65  # Minimum similarity score for retrieved docs
 
     # ── MMR ───────────────────────────────────────────────────────────────────
     use_mmr: bool = False               # Set True to enable MMR retrieval
